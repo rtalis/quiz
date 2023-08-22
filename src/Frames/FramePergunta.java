@@ -49,14 +49,15 @@ public class FramePergunta extends javax.swing.JFrame {
     boolean keepGoing = true;
     int equipe;
     int v1 = 1;
-    int  i = 0, charPosition1 = 0, charPosition2 = 0;
+    int i = 0, charPosition1 = 0, charPosition2 = 0;
 
     private void CreateFile() {
         try {
             pontosFile = new RandomAccessFile("pontos.bk", "rw");
 
         } catch (FileNotFoundException ex) {
-ex.printStackTrace();        }
+            ex.printStackTrace();
+        }
 
     }
 
@@ -141,6 +142,7 @@ ex.printStackTrace();        }
                     try {
                         Thread.sleep(350);
                     } catch (InterruptedException ex) {
+                        ex.printStackTrace();
                     }
                 }
                 Mostra();
@@ -253,20 +255,14 @@ ex.printStackTrace();        }
                 pontosFile.seek(0);
                 pontosFile.writeDouble(1 + pontuacaoAtual);
             } else {
-                pontosFile.seek(0);
-                pontosFile.readDouble();
+                pontosFile.seek(8);
                 pontuacaoAtual = pontosFile.readDouble();
-                pontosFile.seek(0);
-                pontosFile.readDouble();
+                pontosFile.seek(8);
                 pontosFile.writeDouble(pontuacaoAtual + 1);
             }
-            pontosFile.seek(0);
-            pontosFile.readDouble();
-            pontosFile.readDouble();
+            pontosFile.seek(16);
             int rodada = pontosFile.readInt();
-            pontosFile.seek(0);
-            pontosFile.readDouble();
-            pontosFile.readDouble();
+            pontosFile.seek(16);
             pontosFile.writeInt(rodada + 1);
         } catch (IOException ex) {
             Logger.getLogger(FramePergunta.class.getName()).log(Level.SEVERE, null, ex);
@@ -284,20 +280,14 @@ ex.printStackTrace();        }
                 pontosFile.seek(0);
                 pontosFile.writeDouble(0.5 + pontuacaoAtual);
             } else {
-                pontosFile.seek(0);
-                pontosFile.readDouble();
+                pontosFile.seek(8);
                 pontuacaoAtual = pontosFile.readDouble();
-                pontosFile.seek(0);
-                pontosFile.readDouble();
+                pontosFile.seek(8);
                 pontosFile.writeDouble(pontuacaoAtual + 0.5);
             }
-            pontosFile.seek(0);
-            pontosFile.readDouble();
-            pontosFile.readDouble();
+            pontosFile.seek(16);
             int rodada = pontosFile.readInt();
-            pontosFile.seek(0);
-            pontosFile.readDouble();
-            pontosFile.readDouble();
+            pontosFile.seek(16);
             pontosFile.writeInt(rodada + 1);
         } catch (IOException ex) {
             Logger.getLogger(FramePergunta.class.getName()).log(Level.SEVERE, null, ex);
@@ -308,7 +298,7 @@ ex.printStackTrace();        }
 
     private void JnaoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_JnaoActionPerformed
         try {
-            pontosFile.seek(16); //after two double (8 bytes) numbers
+            pontosFile.seek(16); // after two double (8 bytes) numbers
             int rodada = pontosFile.readInt();
             pontosFile.seek(16);
             pontosFile.writeInt(rodada + 1);
