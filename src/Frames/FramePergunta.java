@@ -42,7 +42,7 @@ public class FramePergunta extends javax.swing.JFrame {
         Toolkit kit = Toolkit.getDefaultToolkit();
         Image img = kit.getImage("7.png");
         setIconImage(img);
-
+        
     }
 
     RandomAccessFile pontosFile;
@@ -67,31 +67,31 @@ public class FramePergunta extends javax.swing.JFrame {
             pontosFile.seek(16);
             rodada = pontosFile.readInt();
             if (rodada == 3) {
-                Sorteio("Quais as possiveis causas da desigualdade social");
+                Sorteio("Quais as possiveis causas da desigualdade social?");
             }
             if (rodada == 6) {
-                Sorteio("Quais os 2 tipos de estratificação social");
+                Sorteio("Quais os 2 tipos de estratificação social?");
             }
             if (rodada == 2) {
-                Sorteio("Após qual revolução mudou-se a forma que nos organizamos socialmente");
+                Sorteio("Após qual revolução mudou-se a forma que nos organizamos socialmente?");
             }
             if (rodada == 10) {
-                Sorteio("Em quais periodos se deu a classificação em estamentos");
+                Sorteio("Em quais periodos se deu a classificação em estamentos?");
             }
             if (rodada == 1) {
-                Sorteio("Quais as duas teorias que tentam explicar o que é estratificação social");
+                Sorteio("Quais as duas teorias que tentam explicar o que é estratificação social?");
             }
             if (rodada == 7) {
-                Sorteio("Cite os nomes dos autores responsáveis por elaborar o materialismo didatico");
+                Sorteio("Cite os nomes dos autores responsáveis por elaborar o materialismo didático");
             }
             if (rodada == 9) {
-                Sorteio("Como weber definia a luta de classes");
+                Sorteio("Como weber definia a luta de classes?");
             }
             if (rodada == 4) {
-                Sorteio("O que caracteriza a mobilidade vertical");
+                Sorteio("O que caracteriza a mobilidade vertical?");
             }
             if (rodada == 5) {
-                Sorteio("Como é dada a conservação da estratificação social");
+                Sorteio("Como é dada a conservação da estratificação social?");
             }
             if (rodada == 8) {
                 Sorteio("Como eram divididas as hierarquias sociais segundo Weber");
@@ -127,13 +127,17 @@ public class FramePergunta extends javax.swing.JFrame {
                         charactersBuilder.setCharAt((int) (charPosition1 * 1.5),
                                 pergunta.charAt((int) (charPosition1 * 1.5)));
                     }
-
+                    i++;
+                    if (VerificaDiferenca(pergunta, String.valueOf(charactersBuilder)) < 4) {
+                        charactersBuilder.setLength(0);
+                        charactersBuilder.append(pergunta);
+                    }
                     jpergunta.setText(String.valueOf(charactersBuilder));
                     try {
                         Thread.sleep(1);
                     } catch (InterruptedException ex) {
+                        ex.printStackTrace();
                     }
-                    i++;
                 }
 
                 jProgressBar.setVisible(true);
@@ -158,6 +162,17 @@ public class FramePergunta extends javax.swing.JFrame {
         jparc.setVisible(true);
         jtexto.setVisible(true);
         jProgressBar.setVisible(false);
+    }
+
+    private int VerificaDiferenca(String str1, String str2) {
+        int differences = 0;
+
+        for (int i = 0; i < Math.min(str1.length(), str2.length()); i++) {
+            if (str1.charAt(i) != str2.charAt(i)) {
+                differences++;
+            }
+        }
+        return differences;
     }
 
     /**
