@@ -267,7 +267,7 @@ public class FramePergunta extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(FramePergunta.class.getName()).log(Level.SEVERE, null, ex);
         }
-        dispose();// TODO add your handling code here:
+        dispose();
     }// GEN-LAST:event_jsimActionPerformed
 
     private void jparcActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jparcActionPerformed
